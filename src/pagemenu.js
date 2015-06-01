@@ -55,7 +55,10 @@ mod.directive('pagemenu', function($compile, $location, $anchorScroll) {
 			lastitem= item.link;
 			return item;
 		};
-
+		// check if element is visible
+		scope.isVisible = function(id) {
+			return angular.element('#' + id).is(':visible');
+		}
 		// dom items to build menu from
 		var items = getState().items();
 		var markup = '';
@@ -75,7 +78,7 @@ mod.directive('pagemenu', function($compile, $location, $anchorScroll) {
 			}
 
 			// basic markup
-			markup += '<li pagemenuspy="' + item.link + '" parent="' + item.parent + '">';
+			markup += '<li pagemenuspy="' + item.link + '" parent="' + item.parent + '" ng-class="{\'inactive\': !isVisible(\'' + item.link + '\')}">';
 			markup += '<a href="#' + item.link + '">';
 			markup += item.text;
 			markup += '</a>';
