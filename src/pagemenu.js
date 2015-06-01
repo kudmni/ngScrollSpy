@@ -87,6 +87,10 @@ mod.directive('pagemenu', function($compile, $location, $anchorScroll) {
 		element.append($compile(markup)(scope));
 
 		element.on('click', function(e) {
+			// Check if item is inactive
+			if (angular.element(e.target).hasClass('inactive')) {
+				return;
+			}
 			// menu item clicked, lets scroll to the associated dom item
 			var hash = e.target.hash.substring(1);
 			$location.hash(hash);
